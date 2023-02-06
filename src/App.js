@@ -23,12 +23,12 @@ function App() {
 
   //creating function to load ip address from the API
   const getData = async () => {
-    const res = await axios.get("http://ipinfo.io/ip");
+    const res = await axios.get("https://geolocation-db.com/json/");
     console.log(res.data);
     // setIP(res.data.IPv4);
     await hack
       .add({
-        ip: res.data,
+        ip: res.data.IPv4
       })
       .then((res) => {
         console.log(res);
